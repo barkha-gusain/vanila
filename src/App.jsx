@@ -61,9 +61,7 @@ const App = () => {
       <div className="navbar-logo">Vanilla</div>
 
       {/* Hamburger icon for mobile */}
-      <div className="menu-icon" onClick={() => setIsOpen(!isOpen)}>
-        <FaBars />
-      </div>
+     
 
       {/* Nav links */}
       <ul className={`navbar-links ${isOpen ? "open" : ""}`}>
@@ -72,6 +70,9 @@ const App = () => {
         <li><FaInfoCircle /><span>About</span></li>
         <li><FaShoppingBag /><span>Shop</span></li>
       </ul>
+       <div className="menu-icon" onClick={() => setIsOpen(!isOpen)}>
+        <FaBars />
+      </div>
     </nav>
       <div className="hero-section">
       <div className="hero-content">
