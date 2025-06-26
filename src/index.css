@@ -321,7 +321,7 @@ html,body{
 .top-1 {
   flex: 1;
   min-width: 300px;
-  background-image: url('cccccc.jpg'); /* Use correct relative path inside public */
+  background-image: url('/cccccc.jpg'); /* Use correct relative path inside public */
   background-size: cover;
   background-position: center;
   height: 100%;
@@ -364,7 +364,7 @@ html,body{
 .bottom-2 {
   flex: 1;
   min-width: 300px;
-  background-image: url('cccccc.jpg');
+  background-image: url('/cccccc.jpg');
   background-size: cover;
   background-position: center;
   height: 100%;
