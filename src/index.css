@@ -11,6 +11,7 @@ html,body{
  background-color: white;
 }
 
+
 .navbar {
   top: 0;
   left: 0;
@@ -200,7 +201,6 @@ html,body{
   font-family: 'Poppins', sans-serif;
   text-align: left;
 }
-
 .main-grid h2 {
   font-size: clamp(1.8rem, 5vw, 2.5rem);
   margin-bottom: 2rem;
@@ -208,25 +208,24 @@ html,body{
   color: #5b3926;
 }
 
+
 .grid-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   justify-items: center;
 }
-
 /* ---------- Sweet Card ---------- */
 .sweet-card {
-  position: relative;
+   position: relative;
   background-color: #fffaf3;
   padding: 2rem 1rem 3rem;
   border-radius: 20px;
-  /* border: none; */
   width: 100%;
   max-width: 450px;
   height: auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -776,12 +775,11 @@ li {
 }
 
 
-
 .vanilla-container-2 {
   position: relative;
   width: 100%;
-  height: 100%;
-  background-image: url("/footer.jpg"); /* remove /public for correct path */
+  height: 100vh;
+  background-image: url("/footer.jpg"); /* Ensure this path is correct */
   background-size: cover;
   background-position: center;
   font-family: 'Poppins', sans-serif;
@@ -795,8 +793,8 @@ li {
 .overlay {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 4rem 2rem;
-  height: 100%;
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -864,12 +862,14 @@ li {
 .social-icons {
   display: flex;
   gap: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  opacity: 0;               /* For GSAP animation */
+  transform: translateY(50px); /* Animate from below */
 }
 
 .social-icons svg {
   cursor: pointer;
-  /* transition: transform 0.2s; */
+  transition: transform 0.3s ease;
 }
 
 .social-icons svg:hover {
@@ -880,7 +880,9 @@ li {
 .copyright {
   margin-top: 2rem;
   font-size: 0.9rem;
-  opacity: 0.8;
+  opacity: 0;               /* For GSAP animation */
+  transform: translateY(50px); 
+  transition: opacity 0.3s ease;
 }
 
 /* ---------- Responsive Adjustments ---------- */

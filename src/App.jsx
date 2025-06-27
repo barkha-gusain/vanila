@@ -7,6 +7,7 @@ import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
+import { useEffect } from 'react';
 gsap.registerPlugin(ScrollTrigger)
 const cards = [
   {
@@ -57,274 +58,248 @@ const cards = [
 const App = () => {
 
 
-useGSAP(()=>{
-  const tl = gsap.timeline()
+useGSAP(() => {
+  // Top navbar + hero
+  const tl = gsap.timeline();
 
-   tl.from(".navbar-logo", { y: -100, opacity: 0, duration: 1, delay: 0.3 })
-    .from(".navbar-links li", { y: -20, opacity: 0, stagger: 0.3 }, "-=0.5")
-    
-    .from(".hero-content h1", {
-    x: -100,
-    opacity: 0,
-    duration: 0.5,
-  })
-  .from(".hero-content p", {
-    x: 100,
-    opacity: 0,
-    duration: 0.5,
-  })
-  .from(".hero-content button", {
-    y: 100,
-    opacity: 0,
-    duration: 0.5,
-  });
-  gsap.from(".menu-icon", {y:-100,opacity:0,delay:0.3, duration: 1, })
+  tl.from(".navbar-logo", { y: -100, opacity: 0, duration: 0.6, ease: "power2.out" })
+    .from(".navbar-links li", { y: -20, opacity: 0, stagger: 0.15, duration: 0.4 }, "-=0.3")
+    .from(".menu-icon", { y: -100, opacity: 0, duration: 0.5 }, "-=0.6")
+    .from(".hero-content h1", { x: -80, opacity: 0, duration: 0.6 })
+    .from(".hero-content p", { x: 80, opacity: 0, duration: 0.6 }, "-=0.5")
+    .from(".hero-content button", { y: 60, opacity: 0, duration: 0.5 }, "-=0.4");
+}, []);
 
-    gsap.from(".main-grid h2", {
+useGSAP(() => {
+  // Heading in main grid
+  gsap.from(".main-grid h2", {
     scrollTrigger: {
-      trigger: "h2",
+      trigger: ".main-grid h2",
       start: "top 80%",
-      toggleActions: "play none none none",
-      // markers: true,
     },
-    y: 50,
+    y: 40,
     opacity: 0,
-    duration: 0.5,
+    duration: 0.6,
+    ease: "power2.out",
   });
-     gsap.utils.toArray(".sweet-card").forEach((card, i) => {
-      gsap.from(card, {
-        scrollTrigger: {
-          trigger: card,
-          start: "top 85%",
-        },
-        opacity: 0,
-        y: 50,
-        duration: 0.6,
-        ease: "back.out(1.7)",
-        delay: i * 0.1,
-      });
-    });
-    gsap.from(".top", {
-      scrollTrigger: {
-        trigger: ".top",
-        start: "top 85%",
-      },
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      ease: "power2.out"
-    });
 
-    gsap.from(".top-1", {
-      scrollTrigger: {
-        trigger: ".top-1",
-        start: "top 90%",
-      },
-      x: -100,
-      opacity: 0,
-      duration: 1,
-      ease: "back.out(1.7)"
-    });
-
-    gsap.from(".top-2", {
-      scrollTrigger: {
-        trigger: ".top-2",
-        start: "top 90%",
-      },
-      x: 100,
-      opacity: 0,
-      duration: 1,
-      ease: "back.out(1.7)"
-    });
-
-    gsap.from(".bottom", {
-      scrollTrigger: {
-        trigger: ".bottom",
-        start: "top 85%",
-      },
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      ease: "power2.out"
-    });
-
-    gsap.from(".bottom-1", {
-      scrollTrigger: {
-        trigger: ".bottom-1",
-        start: "top 90%",
-      },
-      x: -100,
-      opacity: 0,
-      duration: 1,
-      ease: "back.out(1.7)"
-    });
-
-    gsap.from(".bottom-2", {
-      scrollTrigger: {
-        trigger: ".bottom-2",
-        start: "top 90%",
-      },
-      x: 100,
-      opacity: 0,
-      duration: 1,
-      ease: "back.out(1.7)"
-    });
-     gsap.from(".vanilla-top", {
-      scrollTrigger: {
-        trigger: ".vanilla-top",
-        start: "top 85%",
-      },
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      ease: "power2.out",
-    });
-      gsap.from(".divider", {
-      scrollTrigger: {
-        trigger: ".divider",
-        start: "top 85%",
-      },
-      opacity: 0,
-      scale: 0.9,
-      duration: 1,
-      ease: "power2.out",
-    });
- gsap.utils.toArray(".menu-column").forEach((col, i) => {
-      gsap.from(col, {
-        scrollTrigger: {
-          trigger: col,
-          start: "top 85%",
-        },
+  // Sweet cards (batching)
+  ScrollTrigger.batch(".sweet-card", {
+    start: "top 85%",
+    onEnter: batch => {
+      gsap.from(batch, {
         opacity: 0,
         y: 40,
-        duration: 0.8,
-        delay: i * 0.2,
+        stagger: 0.15,
+        duration: 0.7,
         ease: "back.out(1.7)",
       });
-    });
-     gsap.from(".delivery-image", {
-      scrollTrigger: {
-        trigger: ".delivery-section",
-        start: "top 80%",
-      },
-      x: -100,
-      opacity: 0,
-      duration: 1,
-      ease: "power2.out"
-    });
-      gsap.from(".scooter", {
-      scrollTrigger: {
-        trigger: ".delivery-section",
-        start: "top 90%",
-      },
-      x: 100,
-      opacity: 0,
-      duration: 1,
-      delay: 0.5,
-      ease: "power2.out"
-    });
-     gsap.from(".phone-wrapper", {
-      scrollTrigger: {
-        trigger: ".phone-wrapper",
-        start: "top 85%",
-      },
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      delay: 0.4,
-      ease: "back.out(1.7)"
-    });
-      gsap.from(".download-btn", {
-      scrollTrigger: {
-        trigger: ".download-btn",
-        start: "top 90%",
-      },
-      opacity: 0,
-      scale: 0.8,
-      duration: 0.8,
-      delay: 0.6,
-      ease: "back.out(1.5)"
-    });
- gsap.from(".reservation-info", {
-      scrollTrigger: {
-        trigger: ".reservation-container",
-        start: "top 90%",
-      },
-      y: 100,
-      opacity: 0,
-      duration: 1,
-      stagger:0.5,
-      ease: "power2.out"
-    });
-     gsap.from(".reservation-image", {
-      scrollTrigger: {
-        trigger: ".reservation-container",
-        start: "top 80%",
-      },
-      x: 100,
-      opacity: 0,
-      duration: 1,
-      delay: 0.2,
-      ease: "power2.out"
-    });
-     gsap.from(".text-content", {
-      scrollTrigger: {
-        trigger: ".text-content",
-        start: "top 80%",
-      },
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      ease: "power2.out",
-    });
-       gsap.from([".title", ".description", ".new-title"], {
-      scrollTrigger: {
-        trigger: ".text-content",
-        start: "top 80%",
-      },
-      opacity: 0,
-      y: 30,
-      stagger: 0.5,
-      duration: 1,
-      ease: "power2.out"
-    });
-       gsap.from(".email-form", {
-      scrollTrigger: {
-        trigger: ".email-form",
-        start: "top 90%",
-      },
-      opacity: 0,
-      scale: 0.8,
-      duration: 0.8,
-      ease: "back.out(1.7)"
-    });
-   gsap.from(".social-icons", {
-      scrollTrigger: {
-        trigger: ".social-icons",
-        start: "top 90%",
-      },
-      opacity: 0,
-      y: 100,
-      duration: 1,
-      delay: 0.2,
-      ease: "bounce.out"
-    });
-      gsap.from(".copyright", {
-      scrollTrigger: {
-        trigger: ".copyright",
-        start: "top 90%",
-      },
-      y:100,
-      opacity: 0,
-      duration: 1,
-    });
-})
+    }
+  });
+}, []);
+
+useGSAP(() => {
+  // Top-bottom news section
+  gsap.from(".top", {
+    scrollTrigger: { trigger: ".top", start: "top 85%" },
+    opacity: 0,
+    y: 50,
+    duration: 0.8,
+    ease: "power2.out"
+  });
+
+  gsap.from([".top-1", ".top-2"], {
+    scrollTrigger: { trigger: ".top", start: "top 85%" },
+    x: (i) => (i === 0 ? -100 : 100),
+    opacity: 0,
+    duration: 1,
+    ease: "back.out(1.7)"
+  });
+
+  gsap.from(".bottom", {
+    scrollTrigger: { trigger: ".bottom", start: "top 85%" },
+    opacity: 0,
+    y: 50,
+    duration: 0.8,
+    ease: "power2.out"
+  });
+
+  gsap.from([".bottom-1", ".bottom-2"], {
+    scrollTrigger: { trigger: ".bottom", start: "top 85%" },
+    x: (i) => (i === 0 ? -100 : 100),
+    opacity: 0,
+    duration: 1,
+    ease: "back.out(1.7)"
+  });
+}, []);
+
+useGSAP(() => {
+  // Vanilla section
+  gsap.from(".vanilla-top", {
+    scrollTrigger: { trigger: ".vanilla-top", start: "top 85%" },
+    opacity: 0,
+    y: 50,
+    duration: 0.8,
+    ease: "power2.out"
+  });
+
+  gsap.from(".divider", {
+    scrollTrigger: { trigger: ".divider", start: "top 85%" },
+    opacity: 0,
+    scale: 0.95,
+    duration: 0.8,
+    ease: "power2.out"
+  });
+
+  // Menu columns
+  ScrollTrigger.batch(".menu-column", {
+    start: "top 85%",
+    onEnter: batch => {
+      gsap.from(batch, {
+        opacity: 0,
+        y: 40,
+        stagger: 0.2,
+        duration: 0.8,
+        ease: "back.out(1.7)"
+      });
+    }
+  });
+}, []);
+
+useGSAP(() => {
+  // Delivery section
+  gsap.from(".delivery-image", {
+    scrollTrigger: { trigger: ".delivery-section", start: "top 85%" },
+    x: -100,
+    opacity: 0,
+    duration: 1,
+    ease: "power2.out"
+  });
+
+  gsap.from(".scooter", {
+    scrollTrigger: { trigger: ".delivery-section", start: "top 90%" },
+    x: 100,
+    opacity: 0,
+    duration: 1,
+    ease: "power2.out"
+  });
+
+  gsap.from(".phone-wrapper", {
+    scrollTrigger: { trigger: ".delivery-section", start: "top 85%" },
+    opacity: 0,
+    y: 40,
+    duration: 0.8,
+    ease: "back.out(1.7)"
+  });
+
+  gsap.from(".download-btn", {
+    scrollTrigger: { trigger: ".delivery-section", start: "top 90%" },
+    opacity: 0,
+    scale: 0.85,
+    duration: 0.8,
+    ease: "back.out(1.5)"
+  });
+}, []);
+
+useGSAP(() => {
+  // Reservation section
+  gsap.from(".reservation-info", {
+    scrollTrigger: {
+      trigger: ".reservation-container",
+      start: window.innerWidth < 768 ? "top 95%" : "top 85%"
+    },
+    y: 80,
+    opacity: 0,
+    duration: 1,
+    ease: "power2.out"
+  });
+
+  gsap.from(".reservation-image", {
+    scrollTrigger: {
+      trigger: ".reservation-container",
+      start: window.innerWidth < 768 ? "top 95%" : "top 85%"
+    },
+    x: 100,
+    opacity: 0,
+    duration: 1,
+    ease: "power2.out"
+  });
+}, []);
+
+useGSAP(() => {
+  // Footer and text block
+  gsap.from(".text-content", {
+    scrollTrigger: {
+      trigger: ".text-content",
+      start: "top 80%",
+    },
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    ease: "power2.out",
+  });
+
+  gsap.from([".title", ".description", ".new-title"], {
+    scrollTrigger: {
+      trigger: ".text-content",
+      start: "top 80%",
+    },
+    opacity: 0,
+    y: 30,
+    stagger: 0.3,
+    duration: 0.8,
+    ease: "power2.out",
+  });
+
+  gsap.from(".email-form", {
+    scrollTrigger: {
+      trigger: ".email-form",
+      start: window.innerWidth < 768 ? "top 95%" : "top 85%"
+    },
+    opacity: 0,
+    scale: 0.8,
+    duration: 0.8,
+    ease: "back.out(1.7)"
+  });
+
+ gsap.from(".social-icons", {
+    scrollTrigger: {
+      trigger: ".social-icons",
+      start: window.innerWidth < 768 ? "top 95%" : "top 85%",
+      toggleActions: "play none none reverse", // smooth exit optional
+    },
+    opacity: 0,
+    y: 100,
+    duration: 0.6,
+    ease: "power2.out",
+  });
+
+  gsap.from(".copyright", {
+    scrollTrigger: {
+      trigger: ".copyright",
+      start: window.innerWidth < 768 ? "top 95%" : "top 85%",
+      toggleActions: "play none none reverse",
+    },
+    opacity: 0,
+    y: 80,
+    duration: 0.6,
+    ease: "power2.out",
+  });
+},
+[]);
+
+
+useEffect(() => {
+  ScrollTrigger.refresh();
+}, []);
+
 
 
 
 
  const [isOpen, setIsOpen] = useState(false);
  
+
 
 
 
