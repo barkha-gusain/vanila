@@ -780,7 +780,7 @@ li {
 .vanilla-container-2 {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-image: url("/footer.jpg"); /* remove /public for correct path */
   background-size: cover;
   background-position: center;
