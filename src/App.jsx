@@ -77,10 +77,9 @@ useGSAP(() => {
       trigger: ".main-grid h2",
       start: "top 80%",
     },
-    y: 40,
+    y: 100,
     opacity: 0,
-    duration: 0.6,
-    ease: "power2.out",
+    duration: 0.5,
   });
 
   // Sweet cards (batching)
@@ -89,9 +88,9 @@ useGSAP(() => {
     onEnter: batch => {
       gsap.from(batch, {
         opacity: 0,
-        y: 40,
-        stagger: 0.15,
-        duration: 0.7,
+        y: 100,
+        stagger: 0.5,
+        duration: 1,
         ease: "back.out(1.7)",
       });
     }
@@ -103,7 +102,7 @@ useGSAP(() => {
   gsap.from(".top", {
     scrollTrigger: { trigger: ".top", start: "top 85%" },
     opacity: 0,
-    y: 50,
+    y: 100,
     duration: 0.8,
     ease: "power2.out"
   });
@@ -119,7 +118,7 @@ useGSAP(() => {
   gsap.from(".bottom", {
     scrollTrigger: { trigger: ".bottom", start: "top 85%" },
     opacity: 0,
-    y: 50,
+    y: 100,
     duration: 0.8,
     ease: "power2.out"
   });
@@ -138,7 +137,7 @@ useGSAP(() => {
   gsap.from(".vanilla-top", {
     scrollTrigger: { trigger: ".vanilla-top", start: "top 85%" },
     opacity: 0,
-    y: 50,
+    y: 100,
     duration: 0.8,
     ease: "power2.out"
   });
@@ -157,7 +156,7 @@ useGSAP(() => {
     onEnter: batch => {
       gsap.from(batch, {
         opacity: 0,
-        y: 40,
+        y: 100,
         stagger: 0.2,
         duration: 0.8,
         ease: "back.out(1.7)"
@@ -262,27 +261,27 @@ useGSAP(() => {
     ease: "back.out(1.7)"
   });
 
- gsap.from(".social-icons", {
+   gsap.from(".social-icons", {
     scrollTrigger: {
       trigger: ".social-icons",
-      start: window.innerWidth < 768 ? "top 95%" : "top 85%",
-      toggleActions: "play none none reverse", // smooth exit optional
+      start: window.innerWidth < 768 ? "top 95%" : "top 85%"
     },
     opacity: 0,
-    y: 100,
-    duration: 0.6,
-    ease: "power2.out",
+    scale: 0.8,
+    duration: 0.8,
+    ease: "back.out(1.7)"
   });
+ 
 
   gsap.from(".copyright", {
     scrollTrigger: {
       trigger: ".copyright",
       start: window.innerWidth < 768 ? "top 95%" : "top 85%",
-      toggleActions: "play none none reverse",
     },
     opacity: 0,
     y: 80,
     duration: 0.6,
+    repeat:true,
     ease: "power2.out",
   });
 },
