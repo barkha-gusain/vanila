@@ -864,12 +864,12 @@ li {
   gap: 1rem;
   font-size: 1.4rem;
   opacity: 0;               /* For GSAP animation */
-  transform: translateY(50px); /* Animate from below */
+  transform: translateY(50px); 
 }
 
 .social-icons svg {
   cursor: pointer;
-  transition: transform 0.3s ease;
+  /* transition: transform 0.3s ease; */
 }
 
 .social-icons svg:hover {
@@ -881,8 +881,8 @@ li {
   margin-top: 2rem;
   font-size: 0.9rem;
   opacity: 0;               /* For GSAP animation */
-  transform: translateY(50px); 
-  transition: opacity 0.3s ease;
+  /* transform: translateY(50px); 
+  transition: opacity 0.3s ease; */
 }
 
 /* ---------- Responsive Adjustments ---------- */

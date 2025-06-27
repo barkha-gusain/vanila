@@ -7,7 +7,7 @@ import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 gsap.registerPlugin(ScrollTrigger)
 const cards = [
   {
@@ -57,249 +57,160 @@ const cards = [
 
 const App = () => {
 
-
+const isMobile = window.innerWidth < 768;
 useGSAP(() => {
-  // Top navbar + hero
   const tl = gsap.timeline();
 
-  tl.from(".navbar-logo", { y: -100, opacity: 0, duration: 0.6, ease: "power2.out" })
-    .from(".navbar-links li", { y: -20, opacity: 0, stagger: 0.15, duration: 0.4 }, "-=0.3")
-    .from(".menu-icon", { y: -100, opacity: 0, duration: 0.5 }, "-=0.6")
-    .from(".hero-content h1", { x: -80, opacity: 0, duration: 0.6 })
-    .from(".hero-content p", { x: 80, opacity: 0, duration: 0.6 }, "-=0.5")
-    .from(".hero-content button", { y: 60, opacity: 0, duration: 0.5 }, "-=0.4");
+  tl.from(".navbar-logo", { y: -50, opacity: 0, duration: 0.5, ease: "power2.out" })
+    .from(".navbar-links li", { y: -20, opacity: 0, stagger: 0.1, duration: 0.4 }, "-=0.3")
+    .from(".menu-icon", { y: -50, opacity: 0, duration: 0.4 }, "-=0.5")
+    .from(".hero-content h1", { x: -40, opacity: 0, duration: 0.5 })
+    .from(".hero-content p", { x: 40, opacity: 0, duration: 0.5 }, "-=0.4")
+    .from(".hero-content button", { y: 30, opacity: 0, duration: 0.4 }, "-=0.3");
 }, []);
 
 useGSAP(() => {
-  // Heading in main grid
+  // Grid Title
   gsap.from(".main-grid h2", {
     scrollTrigger: {
       trigger: ".main-grid h2",
-      start: "top 80%",
+      start: "top 85%",
+      once: true
     },
-    y: 100,
+    y: isMobile ? 30 : 60,
     opacity: 0,
-    duration: 0.5,
+      duration: isMobile ? 0.4 : 0.8,
   });
 
-  // Sweet cards (batching)
-  ScrollTrigger.batch(".sweet-card", {
+  // Batch animations
+  ScrollTrigger.batch([".sweet-card", ".menu-column"], {
     start: "top 85%",
     onEnter: batch => {
       gsap.from(batch, {
         opacity: 0,
-        y: 100,
-        stagger: 0.5,
-        duration: 1,
-        ease: "back.out(1.7)",
-      });
-    }
-  });
-}, []);
-
-useGSAP(() => {
-  // Top-bottom news section
-  gsap.from(".top", {
-    scrollTrigger: { trigger: ".top", start: "top 85%" },
-    opacity: 0,
-    y: 100,
-    duration: 0.8,
-    ease: "power2.out"
-  });
-
-  gsap.from([".top-1", ".top-2"], {
-    scrollTrigger: { trigger: ".top", start: "top 85%" },
-    x: (i) => (i === 0 ? -100 : 100),
-    opacity: 0,
-    duration: 1,
-    ease: "back.out(1.7)"
-  });
-
-  gsap.from(".bottom", {
-    scrollTrigger: { trigger: ".bottom", start: "top 85%" },
-    opacity: 0,
-    y: 100,
-    duration: 0.8,
-    ease: "power2.out"
-  });
-
-  gsap.from([".bottom-1", ".bottom-2"], {
-    scrollTrigger: { trigger: ".bottom", start: "top 85%" },
-    x: (i) => (i === 0 ? -100 : 100),
-    opacity: 0,
-    duration: 1,
-    ease: "back.out(1.7)"
-  });
-}, []);
-
-useGSAP(() => {
-  // Vanilla section
-  gsap.from(".vanilla-top", {
-    scrollTrigger: { trigger: ".vanilla-top", start: "top 85%" },
-    opacity: 0,
-    y: 100,
-    duration: 0.8,
-    ease: "power2.out"
-  });
-
-  gsap.from(".divider", {
-    scrollTrigger: { trigger: ".divider", start: "top 85%" },
-    opacity: 0,
-    scale: 0.95,
-    duration: 0.8,
-    ease: "power2.out"
-  });
-
-  // Menu columns
-  ScrollTrigger.batch(".menu-column", {
-    start: "top 85%",
-    onEnter: batch => {
-      gsap.from(batch, {
-        opacity: 0,
-        y: 100,
+        y: isMobile ? 30 : 60,
         stagger: 0.2,
-        duration: 0.8,
-        ease: "back.out(1.7)"
+          duration: isMobile ? 0.4 : 0.8,
+        ease: "power2.out"
       });
     }
   });
-}, []);
 
-useGSAP(() => {
-  // Delivery section
-  gsap.from(".delivery-image", {
-    scrollTrigger: { trigger: ".delivery-section", start: "top 85%" },
-    x: -100,
+  // Top and Bottom sections
+  gsap.from([".top", ".bottom"], {
+    scrollTrigger: { trigger: ".top", start: "top 85%", once: true },
     opacity: 0,
-    duration: 1,
+     y: isMobile ? 30 : 60,
+      duration: isMobile ? 0.4 : 0.8,
     ease: "power2.out"
   });
 
-  gsap.from(".scooter", {
-    scrollTrigger: { trigger: ".delivery-section", start: "top 90%" },
-    x: 100,
+  // Divider + vanilla section
+  gsap.from([".vanilla-top", ".divider"], {
+    scrollTrigger: { trigger: ".vanilla-top", start: "top 85%", once: true },
     opacity: 0,
-    duration: 1,
+     y: isMobile ? 30 : 60,
+      duration: isMobile ? 0.4 : 0.8,
+    stagger: 0.2,
+    ease: "power2.out"
+  });
+
+  // Delivery
+  gsap.from([".delivery-image", ".scooter"], {
+    scrollTrigger: { trigger: ".delivery-section", start: "top 85%", once: true },
+    x: (i) => i === 0 ? -50 : 50,
+    opacity: 0,
+    duration: isMobile ? 0.4 : 0.8,
     ease: "power2.out"
   });
 
   gsap.from(".phone-wrapper", {
-    scrollTrigger: { trigger: ".delivery-section", start: "top 85%" },
+    scrollTrigger: { trigger: ".delivery-section", start: "top 90%", once: true },
     opacity: 0,
-    y: 40,
-    duration: 0.8,
-    ease: "back.out(1.7)"
+     y: isMobile ? 30 : 60,
+    duration: isMobile ? 0.4 : 0.8,
   });
 
   gsap.from(".download-btn", {
-    scrollTrigger: { trigger: ".delivery-section", start: "top 90%" },
+    scrollTrigger: { trigger: ".delivery-section", start: "top 90%", once: true },
     opacity: 0,
     scale: 0.85,
-    duration: 0.8,
-    ease: "back.out(1.5)"
-  });
-}, []);
-
-useGSAP(() => {
-  // Reservation section
-  gsap.from(".reservation-info", {
-    scrollTrigger: {
-      trigger: ".reservation-container",
-      start: window.innerWidth < 768 ? "top 95%" : "top 85%"
-    },
-    y: 80,
-    opacity: 0,
-    duration: 1,
-    ease: "power2.out"
+    duration: isMobile ? 0.4 : 0.8,
   });
 
-  gsap.from(".reservation-image", {
+  // Reservation
+  gsap.from([".reservation-info", ".reservation-image"], {
     scrollTrigger: {
       trigger: ".reservation-container",
-      start: window.innerWidth < 768 ? "top 95%" : "top 85%"
+      start: window.innerWidth < 768 ? "top 95%" : "top 85%",
+      once: true
     },
-    x: 100,
     opacity: 0,
-    duration: 1,
+    x: (i) => i === 0 ? -50 : 50,
+    duration: isMobile ? 0.4 : 0.8,
     ease: "power2.out"
   });
 }, []);
 
 useGSAP(() => {
-  // Footer and text block
-  gsap.from(".text-content", {
-    scrollTrigger: {
-      trigger: ".text-content",
-      start: "top 80%",
-    },
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    ease: "power2.out",
-  });
-
+  // Text Content Block (footer overlay)
   gsap.from([".title", ".description", ".new-title"], {
     scrollTrigger: {
       trigger: ".text-content",
-      start: "top 80%",
+      start: "top 85%",
+      once: true
     },
     opacity: 0,
-    y: 30,
-    stagger: 0.3,
-    duration: 0.8,
-    ease: "power2.out",
+     y: isMobile ? 30 : 60,
+    stagger: 0.2,
+    duration: isMobile ? 0.4 : 0.8,
+    ease: "power2.out"
   });
 
+  // Email input
   gsap.from(".email-form", {
     scrollTrigger: {
       trigger: ".email-form",
-      start: window.innerWidth < 768 ? "top 95%" : "top 85%"
+      start: "top 90%",
+      once: true
     },
     opacity: 0,
-    scale: 0.8,
-    duration: 0.8,
+    scale: 0.9,
+    duration: isMobile ? 0.4 : 0.8,
     ease: "back.out(1.7)"
   });
 
-   gsap.from(".social-icons", {
-    scrollTrigger: {
-      trigger: ".social-icons",
-      start: window.innerWidth < 768 ? "top 95%" : "top 85%"
-    },
-    opacity: 0,
-    scale: 0.8,
-    duration: 0.8,
-    ease: "back.out(1.7)"
+  // Social icons
+  ScrollTrigger.batch(".social-icons svg", {
+    start: "top 90%",
+    once: true,
+    onEnter: batch => {
+      gsap.to(batch, {
+        opacity: 1,
+         y: isMobile ? 30 : 60,
+        stagger: 0.2,
+        duration: isMobile ? 0.4 : 0.8,
+        ease: "power2.out"
+      });
+    }
   });
- 
 
+  // Copyright
   gsap.from(".copyright", {
     scrollTrigger: {
       trigger: ".copyright",
-      start: window.innerWidth < 768 ? "top 95%" : "top 85%",
+      start: "top 90%",
+      once: true
     },
     opacity: 0,
-    y: 80,
-    duration: 0.6,
-    repeat:true,
-    ease: "power2.out",
+    y: isMobile ? 30 : 60,
+    duration: 0.5,
+    ease: "power2.out"
   });
-},
-[]);
-
-
-useEffect(() => {
-  ScrollTrigger.refresh();
 }, []);
 
 
-
-
-
  const [isOpen, setIsOpen] = useState(false);
- 
-
-
 
 
   return (
@@ -341,7 +252,7 @@ useEffect(() => {
           </div>
 
           {/* round image */}
-          <img src={card.img} alt={card.title} className="card-image" />
+          <img loading="lazy" src={card.img} alt={card.title} className="card-image" />
 
           {/* text section */}
           <div className="card-text">
@@ -435,14 +346,14 @@ useEffect(() => {
 
         <div className="delivery-section">
       <div className="delivery-image">
-        <img src="/rasturant.jpg" alt="Cake" />
+        <img loading="lazy" src="/rasturant.jpg" alt="Cake" />
       </div>
 
       <div className="delivery-info">
-        <img src="/scooter-removebg-preview (1).png" alt="Scooter" className="scooter" />
+        <img loading="lazy" src="/scooter-removebg-preview (1).png" alt="Scooter" className="scooter" />
         <h3 className="delivery-text">We Delivery<br />Any Where</h3>
         <div className="phone-wrapper">
-          <img src="/phone2-removebg-preview.png" alt="Phone" className="phone" />
+          <img loading="lazy" src="/phone2-removebg-preview.png" alt="Phone" className="phone" />
           <div className="phone-text">
             <h4>Now You Can Order<br />On Mobile Phone</h4>
           </div>
@@ -468,7 +379,7 @@ useEffect(() => {
       </div>
 
       <div className="reservation-image">
-        <img 
+        <img loading="lazy" 
           src="/rasturant.jpg" 
           alt="Cafe" 
         />
